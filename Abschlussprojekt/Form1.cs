@@ -37,26 +37,33 @@ namespace Abschlussprojekt
         private async void button1_Click(object sender, EventArgs e)
         {
             String input = addressinput.Text;
-            if (input != String.Empty)
+            if (input != "NO INPUT")
             {
-                String geolocation = "https://api.myptv.com/geocoding/v1/locations/by-text?searchText=" + input + "&apiKey=MGUxZGNjZGM1NTlkNDFhMjgxYjkzZGIwZTU5NjMyYmU6ZTFjZjE5OGMtMTRhYi00MTY5LThjMDItOGMxOTJmZTAzODRj";
-                //textBox1.Text = input;
-                //textBox2.Text = geolocation;
+                if (input != String.Empty)
+                {
+                    String geolocation = "https://api.myptv.com/geocoding/v1/locations/by-text?searchText=" + input + "&apiKey=MGUxZGNjZGM1NTlkNDFhMjgxYjkzZGIwZTU5NjMyYmU6ZTFjZjE5OGMtMTRhYi00MTY5LThjMDItOGMxOTJmZTAzODRj";
+                    //textBox1.Text = input;
+                    //textBox2.Text = geolocation;
 
 
-                HttpClient client = new HttpClient();
-                stationDict = new Dictionary<string, string>();
+                    HttpClient client = new HttpClient();
+                    stationDict = new Dictionary<string, string>();
 
-                string res = await client.GetStringAsync(geolocation);
-                var jsonDataSingle = JObject.Parse(res);
+                    string res = await client.GetStringAsync(geolocation);
+                    var jsonDataSingle = JObject.Parse(res);
 
 
-                textBox1.Text = (string)jsonDataSingle["locations"][0]["referencePosition"]["latitude"];
-                textBox2.Text = (string)jsonDataSingle["locations"][0]["referencePosition"]["longitude"];
+                    textBox1.Text = (string)jsonDataSingle["locations"][0]["referencePosition"]["latitude"];
+                    textBox2.Text = (string)jsonDataSingle["locations"][0]["referencePosition"]["longitude"];
+                }
+                else if (input == String.Empty)
+                {
+                    addressinput.Text = "NO INPUT";
+                }
             }
-            else if (input == String.Empty)
-            {
-                addressinput.Text = "NO INPUT";
+            else if (input == "NO INPUT")
+            { 
+            
             }
 
         }
