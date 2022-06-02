@@ -48,6 +48,8 @@
             this.pType = new System.Windows.Forms.TextBox();
             this.pProbability = new System.Windows.Forms.TextBox();
             this.pIntensity = new System.Windows.Forms.TextBox();
+            this.mm = new System.Windows.Forms.Label();
+            this.percentageLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // addressinput
@@ -199,6 +201,7 @@
             this.pProbability.ReadOnly = true;
             this.pProbability.Size = new System.Drawing.Size(125, 22);
             this.pProbability.TabIndex = 12;
+            this.pProbability.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // pIntensity
             // 
@@ -207,6 +210,26 @@
             this.pIntensity.ReadOnly = true;
             this.pIntensity.Size = new System.Drawing.Size(125, 22);
             this.pIntensity.TabIndex = 11;
+            this.pIntensity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.pIntensity.TextChanged += new System.EventHandler(this.pIntensity_TextChanged);
+            // 
+            // mm
+            // 
+            this.mm.AutoSize = true;
+            this.mm.Location = new System.Drawing.Point(166, 128);
+            this.mm.Name = "mm";
+            this.mm.Size = new System.Drawing.Size(29, 16);
+            this.mm.TabIndex = 18;
+            this.mm.Text = "mm";
+            // 
+            // percentageLabel
+            // 
+            this.percentageLabel.AutoSize = true;
+            this.percentageLabel.Location = new System.Drawing.Point(364, 128);
+            this.percentageLabel.Name = "percentageLabel";
+            this.percentageLabel.Size = new System.Drawing.Size(19, 16);
+            this.percentageLabel.TabIndex = 19;
+            this.percentageLabel.Text = "%";
             // 
             // Weather
             // 
@@ -214,6 +237,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.percentageLabel);
+            this.Controls.Add(this.mm);
             this.Controls.Add(this.description);
             this.Controls.Add(this.precipitationType);
             this.Controls.Add(this.precipitationProbability);
@@ -265,6 +290,8 @@
         private System.Windows.Forms.TextBox pType;
         private System.Windows.Forms.TextBox pProbability;
         private System.Windows.Forms.TextBox pIntensity;
+        private System.Windows.Forms.Label mm;
+        private System.Windows.Forms.Label percentageLabel;
     }
 }
 

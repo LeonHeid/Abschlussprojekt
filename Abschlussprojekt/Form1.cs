@@ -63,11 +63,11 @@ namespace Abschlussprojekt
                     String latitude = (string)geoJsonDataSingle["locations"][0]["referencePosition"]["latitude"];
                     String longitude = (string)geoJsonDataSingle["locations"][0]["referencePosition"]["longitude"];
 
-                    String weather = "https://api.tomorrow.io/v4/timelines?location=" + latitude + "," + longitude + "&fields=temperature,precipitationIntensity,precipitationProbability,precipitationType&units=metric&apikey=aw5TpIHGOpwXGncccwayTkiVZ2IyYrZ2";
+                    String weather = "https://api.tomorrow.io/v4/timelines?location=" + latitude + "," + longitude + "&fields=temperature,precipitationIntensity,precipitationProbability,precipitationType&timesteps=1m&units=metric&apikey=aw5TpIHGOpwXGncccwayTkiVZ2IyYrZ2";
 
                     //textBox4.Text = weather;
 
-                    HttpClient weatherClient = new HttpClient();;
+                    HttpClient weatherClient = new HttpClient();
 
                     string weatherRes = await weatherClient.GetStringAsync(weather);
                     var weatherJsonDataSingle = JObject.Parse(weatherRes);
@@ -78,9 +78,26 @@ namespace Abschlussprojekt
                     pProbability.Text = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationProbability"];
                     pType.Text = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationType"];
                     textBox4.Text = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["startTime"];
-                    
+
+
+                    int pIntensityString = (int)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationIntensity"];
+                    int pProbabilityString = (int)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationProbability"];
+
+                    //int pIntensityInt = Int32.Parse(pIntensityString);
+                    //int pProbabilityInt = Int32.Parse(pProbabilityString);
+
+
                     String pSwitchStringType = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationType"];
                     int pSwitchType = Int32.Parse(pSwitchStringType);
+                    if (pIntensityString == 0 && pProbabilityString == 0)
+                    {
+                        pSwitchType = 0;
+                        pType.Text = "0";
+                    }
+                    else if (pIntensityString != 0 && pProbabilityString != 0)
+                    {
+
+                    }
                     switch (pSwitchType)
                     {
                         case 0:
@@ -127,6 +144,9 @@ namespace Abschlussprojekt
 
         }
 
+        private void pIntensity_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }
