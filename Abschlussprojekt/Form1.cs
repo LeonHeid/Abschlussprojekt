@@ -1,13 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Abschlussprojekt
@@ -73,7 +67,7 @@ namespace Abschlussprojekt
                     var weatherJsonDataSingle = JObject.Parse(weatherRes);
 
                     textBox3.Text = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["temperature"];
-                    
+
                     pIntensity.Text = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationIntensity"];
                     pProbability.Text = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationProbability"];
                     pType.Text = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationType"];
@@ -128,8 +122,8 @@ namespace Abschlussprojekt
                 }
             }
             else if (input == "NO INPUT")
-            { 
-            
+            {
+
             }
 
         }

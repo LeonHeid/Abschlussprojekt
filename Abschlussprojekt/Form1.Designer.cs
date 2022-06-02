@@ -67,7 +67,7 @@
             this.clearinput.Name = "clearinput";
             this.clearinput.Size = new System.Drawing.Size(75, 25);
             this.clearinput.TabIndex = 1;
-            this.clearinput.Text = "Clear";
+            this.clearinput.Text = "&Clear";
             this.clearinput.UseVisualStyleBackColor = true;
             this.clearinput.Click += new System.EventHandler(this.clearinput_Click);
             // 
@@ -110,7 +110,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 25);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Weather";
+            this.button1.Text = "&Weather";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
