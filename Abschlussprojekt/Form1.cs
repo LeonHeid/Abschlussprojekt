@@ -25,6 +25,7 @@ namespace Abschlussprojekt
 
         private void clearinput_Click(object sender, EventArgs e)
         {
+            textBox5.Text = String.Empty;
             addressinput.Text = String.Empty;
             textBox1.Text = String.Empty;
             textBox2.Text = String.Empty;
@@ -44,8 +45,7 @@ namespace Abschlussprojekt
                 if (input != String.Empty)
                 {
                     String geolocation = "https://api.myptv.com/geocoding/v1/locations/by-text?searchText=" + input + "&apiKey=MGUxZGNjZGM1NTlkNDFhMjgxYjkzZGIwZTU5NjMyYmU6ZTFjZjE5OGMtMTRhYi00MTY5LThjMDItOGMxOTJmZTAzODRj";
-                    //textBox1.Text = input;
-                    //textBox2.Text = geolocation;
+
 
 
                     HttpClient geoClient = new HttpClient();
@@ -63,7 +63,6 @@ namespace Abschlussprojekt
 
                     String weather = "https://api.tomorrow.io/v4/timelines?location=" + resLatitude + "," + resLongitude + "&fields=temperature,precipitationIntensity,precipitationProbability,precipitationType&timesteps=1m&units=metric&apikey=aw5TpIHGOpwXGncccwayTkiVZ2IyYrZ2";
 
-                    //textBox5.Text = weather;
 
                     HttpClient weatherClient = new HttpClient();
 
@@ -81,8 +80,6 @@ namespace Abschlussprojekt
                     int pIntensityInt = (int)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationIntensity"];
                     int pProbabilityInt = (int)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationProbability"];
 
-                    //int pIntensityInt = Int32.Parse(pIntensityString);
-                    //int pProbabilityInt = Int32.Parse(pProbabilityString);
 
                     String resDescription = "";
                     String pSwitchStringType = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationType"];
@@ -161,6 +158,34 @@ namespace Abschlussprojekt
                     JsonAppData postJson = new JsonAppData { latitude = resLatitude, longitude = resLongitude, temperature = resTemperature, utcTime = resTime, pIntensity = resPIntensity, pProbability = resPProbability, pType = pSwitchStringType, description = resDescription };
                     string postToAzure = JsonConvert.SerializeObject(postJson);
                     //textBox5.Text = postToAzure;
+
+                    HttpWebRequest webRequest;
+
+                    string requestParams = postToAzure; //format information you need to pass into that string ('info={ "EmployeeID": [ "1234567", "7654321" ], "Salary": true, "BonusPercentage": 10}');
+
+                    webRequest = (HttpWebRequest)WebRequest.Create("https://prod-28.switzerlandnorth.logic.azure.com:443/workflows/62c68877cff445a68d7ad0d484e40885/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-Wnjg42KsgRhh5DDjXnMu0Ad9j4jYC6CrG3rYy5puzA");
+
+                    webRequest.Method = "POST";
+                    webRequest.ContentType = "application/json";
+
+                    byte[] byteArray = Encoding.UTF8.GetBytes(requestParams);
+                    webRequest.ContentLength = byteArray.Length;
+                    using (Stream requestStream = webRequest.GetRequestStream())
+                    {
+                        requestStream.Write(byteArray, 0, byteArray.Length);
+                    }
+
+                    // Get the response.
+                    using (WebResponse response = webRequest.GetResponse())
+                    {
+                        using (Stream responseStream = response.GetResponseStream())
+                        {
+                            StreamReader rdr = new StreamReader(responseStream, Encoding.UTF8);
+                            string lARes = rdr.ReadToEnd(); // response from server
+                            //textBox5.Text = lARes;
+                        }
+                    }
+                    
                 }
                 else if (input == String.Empty)
                 {

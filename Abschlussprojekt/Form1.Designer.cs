@@ -50,6 +50,7 @@
             this.pIntensity = new System.Windows.Forms.TextBox();
             this.mm = new System.Windows.Forms.Label();
             this.percentageLabel = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // addressinput
@@ -231,12 +232,20 @@
             this.percentageLabel.TabIndex = 19;
             this.percentageLabel.Text = "%";
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(419, 259);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 22);
+            this.textBox5.TabIndex = 20;
+            // 
             // Weather
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.percentageLabel);
             this.Controls.Add(this.mm);
             this.Controls.Add(this.description);
@@ -292,6 +301,7 @@
         private System.Windows.Forms.TextBox pIntensity;
         private System.Windows.Forms.Label mm;
         private System.Windows.Forms.Label percentageLabel;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 
