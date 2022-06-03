@@ -25,7 +25,6 @@ namespace Abschlussprojekt
 
         private void clearinput_Click(object sender, EventArgs e)
         {
-            textBox5.Text = String.Empty;
             addressinput.Text = String.Empty;
             textBox1.Text = String.Empty;
             textBox2.Text = String.Empty;
@@ -46,8 +45,6 @@ namespace Abschlussprojekt
                 {
                     String geolocation = "https://api.myptv.com/geocoding/v1/locations/by-text?searchText=" + input + "&apiKey=MGUxZGNjZGM1NTlkNDFhMjgxYjkzZGIwZTU5NjMyYmU6ZTFjZjE5OGMtMTRhYi00MTY5LThjMDItOGMxOTJmZTAzODRj";
 
-
-
                     HttpClient geoClient = new HttpClient();
                     stationDict = new Dictionary<string, string>();
 
@@ -62,6 +59,7 @@ namespace Abschlussprojekt
                     String resLongitude = (string)geoJsonDataSingle["locations"][0]["referencePosition"]["longitude"];
 
                     String weather = "https://api.tomorrow.io/v4/timelines?location=" + resLatitude + "," + resLongitude + "&fields=temperature,precipitationIntensity,precipitationProbability,precipitationType&timesteps=1m&units=metric&apikey=aw5TpIHGOpwXGncccwayTkiVZ2IyYrZ2";
+
 
 
                     HttpClient weatherClient = new HttpClient();
@@ -79,6 +77,7 @@ namespace Abschlussprojekt
 
                     int pIntensityInt = (int)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationIntensity"];
                     int pProbabilityInt = (int)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["precipitationProbability"];
+
 
 
                     String resDescription = "";
@@ -119,32 +118,6 @@ namespace Abschlussprojekt
                             break;
                     }
 
-                    /*HttpWebRequest webRequest;
-
-                    string requestParams = ""; //format information you need to pass into that string ('info={ "EmployeeID": [ "1234567", "7654321" ], "Salary": true, "BonusPercentage": 10}');
-
-                    webRequest = (HttpWebRequest)WebRequest.Create("http://example.com/xyz/php/api/createjob.php");
-
-                    webRequest.Method = "POST";
-                    webRequest.ContentType = "application/json";
-
-                    byte[] byteArray = Encoding.UTF8.GetBytes(requestParams);
-                    webRequest.ContentLength = byteArray.Length;
-                    using (Stream requestStream = webRequest.GetRequestStream())
-                    {
-                        requestStream.Write(byteArray, 0, byteArray.Length);
-                    }
-
-                    // Get the response.
-                    using (WebResponse response = webRequest.GetResponse())
-                    {
-                        using (Stream responseStream = response.GetResponseStream())
-                        {
-                            StreamReader rdr = new StreamReader(responseStream, Encoding.UTF8);
-                            string Json = rdr.ReadToEnd(); // response from server
-
-                        }
-                    }*/
 
                     String resTemperature = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["values"]["temperature"];
                     String resTime = (string)weatherJsonDataSingle["data"]["timelines"][0]["intervals"][0]["startTime"];
@@ -157,7 +130,6 @@ namespace Abschlussprojekt
 
                     JsonAppData postJson = new JsonAppData { latitude = resLatitude, longitude = resLongitude, temperature = resTemperature, utcTime = resTime, pIntensity = resPIntensity, pProbability = resPProbability, pType = pSwitchStringType, description = resDescription };
                     string postToAzure = JsonConvert.SerializeObject(postJson);
-                    //textBox5.Text = postToAzure;
 
                     HttpWebRequest webRequest;
 
@@ -185,7 +157,6 @@ namespace Abschlussprojekt
                             //textBox5.Text = lARes;
                         }
                     }
-                    
                 }
                 else if (input == String.Empty)
                 {
