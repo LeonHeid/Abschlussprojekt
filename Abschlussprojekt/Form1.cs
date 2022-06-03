@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Abschlussprojekt
 {
@@ -154,7 +155,15 @@ namespace Abschlussprojekt
                         {
                             StreamReader rdr = new StreamReader(responseStream, Encoding.UTF8);
                             string lARes = rdr.ReadToEnd(); // response from server
-                            //textBox5.Text = lARes;
+                            DateTime now = DateTime.Now;
+
+                            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+                            //textBox5.Text = now.ToLocalTime().ToString();
+
+                            using (StreamWriter writer = new StreamWriter("D:/School/ZLI/Abschlussprojekt/Visual Studio/Abschlussprojekt/Logfile.txt", true))
+                            {
+                                writer.WriteLine(lARes + " " + now.ToLocalTime().ToString());
+                            }
                         }
                     }
                 }
