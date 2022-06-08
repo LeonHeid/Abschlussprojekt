@@ -131,6 +131,12 @@ namespace Abschlussprojekt
 
                     JsonAppData postJson = new JsonAppData { latitude = resLatitude, longitude = resLongitude, temperature = resTemperature, utcTime = resTime, pIntensity = resPIntensity, pProbability = resPProbability, pType = pSwitchStringType, description = resDescription };
                     string postToAzure = JsonConvert.SerializeObject(postJson);
+                    /*using (StreamWriter writer = new StreamWriter("../../../testing.txt"))
+                    {
+                        String test = "testing"; 
+                        DateTime now = DateTime.Now;
+                        writer.WriteLine(test + " " + now.ToLocalTime().ToString());
+                    }*/
 
                     HttpWebRequest webRequest;
 
@@ -160,7 +166,7 @@ namespace Abschlussprojekt
                             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
                             //textBox5.Text = now.ToLocalTime().ToString();
 
-                            using (StreamWriter writer = new StreamWriter("D:/School/ZLI/Abschlussprojekt/Visual Studio/Abschlussprojekt/Logfile.txt", true))
+                            using (StreamWriter writer = new StreamWriter("../../../Logfile.txt", true))
                             {
                                 writer.WriteLine(lARes + " " + now.ToLocalTime().ToString());
                             }
