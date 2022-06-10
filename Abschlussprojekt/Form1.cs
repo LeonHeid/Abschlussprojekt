@@ -39,11 +39,13 @@ namespace Abschlussprojekt
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            //Checking if the input field is empty or NO INPUT is written
             String input = addressinput.Text;
             if (input != "NO INPUT")
             {
                 if (input != String.Empty)
                 {
+                    //Geolocation API request and Display Data on to the Textboxes
                     String geolocation = "https://api.myptv.com/geocoding/v1/locations/by-text?searchText=" + input + "&apiKey=MGUxZGNjZGM1NTlkNDFhMjgxYjkzZGIwZTU5NjMyYmU6ZTFjZjE5OGMtMTRhYi00MTY5LThjMDItOGMxOTJmZTAzODRj";
 
                     HttpClient geoClient = new HttpClient();
@@ -52,12 +54,13 @@ namespace Abschlussprojekt
                     string geoRes = await geoClient.GetStringAsync(geolocation);
                     var geoJsonDataSingle = JObject.Parse(geoRes);
 
-
                     textBox1.Text = (string)geoJsonDataSingle["locations"][0]["referencePosition"]["latitude"];
                     textBox2.Text = (string)geoJsonDataSingle["locations"][0]["referencePosition"]["longitude"];
 
                     String resLatitude = (string)geoJsonDataSingle["locations"][0]["referencePosition"]["latitude"];
                     String resLongitude = (string)geoJsonDataSingle["locations"][0]["referencePosition"]["longitude"];
+
+
 
                     String weather = "https://api.tomorrow.io/v4/timelines?location=" + resLatitude + "," + resLongitude + "&fields=temperature,precipitationIntensity,precipitationProbability,precipitationType&timesteps=1m&units=metric&apikey=aw5TpIHGOpwXGncccwayTkiVZ2IyYrZ2";
 
