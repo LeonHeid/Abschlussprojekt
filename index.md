@@ -1,6 +1,6 @@
 ## Download My Abschlussprojekt
 
-[setup.exe](https://github.com/LeonHeid/Abschlussprojekt/raw/gh-pages/setup.exe)
+[Download Installer](https://github.com/LeonHeid/Abschlussprojekt/raw/gh-pages/setup.exe)
 
 <!---
 # Header 1
